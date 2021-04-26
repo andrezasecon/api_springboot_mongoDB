@@ -5,7 +5,6 @@ import com.andreza.apirestmongo.dto.UserDTO;
 import com.andreza.apirestmongo.repository.UserRepository;
 import com.andreza.apirestmongo.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +27,12 @@ public class UserService {
 
     public User insert(User obj){
         return repo.insert(obj);
+    }
+
+
+    public void deleteUSer(String id){
+        findById(id);
+        repo.deleteById(id);
     }
 
     public User fromDTO(UserDTO objDTO){
