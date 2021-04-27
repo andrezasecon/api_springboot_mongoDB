@@ -19,29 +19,38 @@ public class UserResource {
     @Autowired
     private UserService service;
 
-    @RequestMapping(method= RequestMethod.GET)
-    public ResponseEntity<List<UserDTO>> findAll(){
+    @GetMapping
+    public ResponseEntity<List<UserDTO>> findAll() {
         List<User> list = service.findAll();
-        List<UserDTO> listDTO = list.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
+        List<UserDTO> listDTO = list.stream().map(UserDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
     }
-    @RequestMapping(value = "/{id}", method= RequestMethod.GET)
-    public ResponseEntity<UserDTO> findById(@PathVariable String id){
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<UserDTO> findById(@PathVariable String id) {
         User obj = service.findById(id);
         return ResponseEntity.ok().body(new UserDTO(obj));
     }
 
-    @RequestMapping(method= RequestMethod.POST)
-    public ResponseEntity<Void> insertUser (@RequestBody UserDTO objDTO){
+    @PostMapping
+    public ResponseEntity<Void> insertUser(@RequestBody UserDTO objDTO) {
         User obj = service.fromDTO(objDTO);
         obj = service.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("{/id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
-    @RequestMapping(value = "/{id}", method= RequestMethod.DELETE)
-    public ResponseEntity<Void> deleteUSer(@PathVariable String id){
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deleteUSer(@PathVariable String id) {
         service.deleteUSer(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Void> updatetUser(@RequestBody UserDTO objDTO, @PathVariable String id) {
+        User obj = service.fromDTO(objDTO);
+        obj.setId(id);
+        service.updateUser(obj);
         return ResponseEntity.noContent().build();
     }
 
