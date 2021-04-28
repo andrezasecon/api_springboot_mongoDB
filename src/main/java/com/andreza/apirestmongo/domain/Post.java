@@ -1,5 +1,6 @@
 package com.andreza.apirestmongo.domain;
 
+import com.andreza.apirestmongo.dto.AuthorDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -19,18 +20,17 @@ public class Post implements Serializable {
     private String id;
     private Date date;
     private String title;
-    private String Body;
-    private User author;
+    private String body;
+    private AuthorDTO author;
 
     public Post(){
-
     }
 
-    public Post(String id, Date date, String title, String body, User author) {
+    public Post(String id, Date date, String title, String body, AuthorDTO author) {
         this.id = id;
         this.date = date;
         this.title = title;
-        this.Body = body;
+        this.body = body;
         this.author = author;
     }
 
@@ -59,18 +59,18 @@ public class Post implements Serializable {
     }
 
     public String getBody() {
-        return Body;
+        return body;
     }
 
     public void setBody(String body) {
-        Body = body;
+        body = body;
     }
 
-    public User getAuthor(){
+    public AuthorDTO getAuthor(){
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(AuthorDTO author) {
         this.author = author;
     }
 
