@@ -1,7 +1,6 @@
 package com.andreza.apirestmongo.domain;
 
 import com.andreza.apirestmongo.dto.AuthorDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -12,9 +11,6 @@ import java.util.Objects;
 @Document
 public class Post implements Serializable {
     public static final long serialVersionUID = 1L;
-
-    @Autowired
-    public User user;
 
     @Id
     private String id;

@@ -1,5 +1,6 @@
 package com.andreza.apirestmongo.resources;
 
+import com.andreza.apirestmongo.domain.Post;
 import com.andreza.apirestmongo.domain.User;
 import com.andreza.apirestmongo.dto.UserDTO;
 import com.andreza.apirestmongo.services.UserService;
@@ -54,4 +55,9 @@ public class UserResource {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
+    }
 }
