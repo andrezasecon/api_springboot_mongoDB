@@ -20,7 +20,13 @@ public class PostService {
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
     }
 
+//     Consulta utilizando Query methods
+//    public List<Post> findByTitle(String text){
+//        return postRepo.findByTitleContainingIgnoreCase(text);
+//    }
+
+    // consulta utilizando o @Query
     public List<Post> findByTitle(String text){
-        return postRepo.findByTitleContainingIgnoreCase(text);
+        return postRepo.findByTitle(text);
     }
 }
